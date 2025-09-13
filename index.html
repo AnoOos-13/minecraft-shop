@@ -7,12 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-body { font-family: 'Press Start 2P', monospace; }
+body { 
+  font-family: 'Press Start 2P', monospace; 
+  background-image: url('imag/background.jpg.webp'); /* هنا صورة الخلفية */
+  background-size: cover;      /* لتغطية الشاشة */
+  background-position: center; /* تمركز الصورة */
+  background-repeat: no-repeat;
+}
 img { image-rendering: pixelated; }
 </style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-[#7fb77e] to-[#1b5e20] p-6">
-<div class="max-w-6xl mx-auto">
+<body class="min-h-screen p-6">
+<div class="max-w-6xl mx-auto bg-black/50 p-6 rounded-lg"> <!-- خلفية شفافة للخليط مع الصورة -->
 <header class="flex items-center justify-center mb-10">
 <h1 class="text-white text-xl">🛒 Anas & Ali SHOP </h1>
 </header>
@@ -35,4 +41,3 @@ img { image-rendering: pixelated; }
 </div>
 </body>
 </html>
-
