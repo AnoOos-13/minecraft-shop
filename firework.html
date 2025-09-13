@@ -6,27 +6,35 @@
 <title>ألعاب نارية - متجر ماينكرافت</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<style>body { font-family: 'Press Start 2P', monospace; } img { image-rendering: pixelated; }</style>
+<style>
+body { 
+  font-family: 'Press Start 2P', monospace; 
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: url('imag/background.jpg.webp') no-repeat center center fixed;
+  background-size: cover;
+}
+.bg-overlay {
+  background-color: rgba(0,0,0,0.5);
+  min-height: 100vh;
+}
+img { image-rendering: pixelated; }
+</style>
 </head>
-<body class="min-h-screen bg-gradient-to-b from-[#7fb77e] to-[#1b5e20] p-6">
-<div class="max-w-3xl mx-auto">
-<header class="flex items-center justify-between mb-10">
-<a href="index.html" class="text-white text-sm border px-3 py-1 rounded hover:bg-black/20">⬅ العودة</a>
-<h1 class="text-white text-xl">ألعاب نارية (Firework)</h1>
-</header>
-<main class="bg-[#efe6c8] rounded-lg p-6 shadow-md border-2 border-[#c1a15a] text-center">
-<img src="imag/firework.jfif" alt="firework" class="mx-auto w-32 h-32 mb-4">
-<p class="mb-3 text-gray-700 text-sm">ادفع داخل اللعبة: <strong>32 فاير وورك = 1 دايمند</strong></p>
-<form action="https://formspree.io/f/mdkljklw" method="POST">
-<label class="block mb-2">اسمك داخل اللعبة:</label>
-<input type="text" name="playerName" required class="border rounded px-2 py-1 mb-3 w-full text-center">
-<label class="block mb-2">الكمية التي تريد الحصول عليها:</label>
-<input type="number" name="quantity" value="1" min="1" required class="border rounded px-2 py-1 mb-3 w-24 text-center">
-<input type="hidden" name="product" value="Firework">
-<button type="submit" class="px-4 py-2 bg-[#ffb74d] border-2 border-black rounded shadow-sm">إرسال الطلب</button>
-</form>
-</main>
-<footer class="mt-10 text-center text-xs text-white/80">قم بتنفيذ عمليات الدفع داخل السيرفر فقط باستخدام نظام التجارة.</footer>
-</div>
-</body>
-</html>
+<body>
+<div class="bg-overlay flex flex-col min-h-screen p-6">
+  <div class="max-w-3xl mx-auto flex-grow">
+    <header class="flex items-center justify-between mb-10">
+      <a href="index.html" class="text-white text-sm border px-3 py-1 rounded hover:bg-black/20">⬅ العودة</a>
+      <h1 class="text-white text-xl">ألعاب نارية (Firework)</h1>
+    </header>
+
+    <main class="bg-[#efe6c8] rounded-lg p-6 shadow-md border-2 border-[#c1a15a] text-center">
+      <img src="imag/firework.jfif" alt="firework" class="mx-auto w-32 h-32 mb-4">
+      <p class="mb-3 text-gray-700 text-sm">ادفع داخل اللعبة: <strong>32 فاير وورك = 1 دايمند</strong></p>
+      <form action="https://formspree.io/f/mdkljklw" method="POST">
+        <label class="block mb-2">اسمك داخل اللعبة:</label>
+        <input type="text" name="playerName" required class="border rounded px-2 py-1 mb-3 w-full text-center">
+        <label class="block mb-2">الكمية التي تريد الحصول عليها:</label>
+        <input type="number" name="quantity" value="1" min="1" required class="border rounded px-2 py-1 mb
