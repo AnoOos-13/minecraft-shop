@@ -4,22 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>جزر ذهبي - متجر ماينكرافت</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body { 
   font-family: 'Press Start 2P', monospace; 
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   min-height: 100vh;
   background: url('imag/background.jpg.webp') no-repeat center center fixed;
   background-size: cover;
 }
-.bg-overlay {
-  background-color: rgba(0,0,0,0.5);
-  min-height: 100vh;
-}
-img { image-rendering: pixelated; }
+.bg-overlay { background-color: rgba(0,0,0,0.5); min-height: 100vh; }
 </style>
 </head>
 <body>
@@ -31,22 +25,58 @@ img { image-rendering: pixelated; }
     </header>
 
     <main class="bg-[#efe6c8] rounded-lg p-6 shadow-md border-2 border-[#c1a15a] text-center">
-      <img src="imag/Golden_carrots.jfif" alt="golden carrot" class="mx-auto w-32 h-32 mb-4">
+      <img src="imag/Golden_carrots.jfif" class="mx-auto w-32 h-32 mb-4" alt="Golden Carrot">
       <p class="mb-3 text-gray-700 text-sm">ادفع داخل اللعبة: <strong>32 جزر ذهبي = 1 دايمند</strong></p>
-      <form action="https://formspree.io/f/mdkljklw" method="POST">
-        <label class="block mb-2">اسمك داخل اللعبة:</label>
-        <input type="text" name="playerName" required class="border rounded px-2 py-1 mb-3 w-full text-center">
-        <label class="block mb-2">الكمية التي تريد الحصول عليها:</label>
-        <input type="number" name="quantity" value="1" min="1" required class="border rounded px-2 py-1 mb-3 w-24 text-center">
-        <input type="hidden" name="product" value="Golden Carrot">
-        <button type="submit" class="px-4 py-2 bg-[#ffb74d] border-2 border-black rounded shadow-sm">إرسال الطلب</button>
-      </form>
-    </main>
 
-    <footer class="mt-10 text-center text-xs text-white/80">
-      قم بتنفيذ عمليات الدفع داخل السيرفر فقط باستخدام نظام التجارة.
-    </footer>
+      <label class="block mb-2">اسمك داخل اللعبة:</label>
+      <input type="text" id="playerName_carrot" class="border rounded px-2 py-1 mb-3 w-full text-center">
+
+      <label class="block mb-2">الكمية:</label>
+      <input type="number" id="quantity_carrot" value="1" min="1" class="border rounded px-2 py-1 mb-3 w-24 text-center">
+
+      <div class="flex justify-center gap-4">
+        <button id="addBtn_carrot" class="px-4 py-2 bg-green-400 border-2 border-black rounded shadow-sm">🛒 أضف للسلة</button>
+
+        <form id="directForm_carrot" action="https://formspree.io/f/mdkljklw" method="POST" class="inline">
+          <input type="hidden" name="product" value="Golden Carrot">
+          <input type="hidden" name="playerName" id="directName_carrot">
+          <input type="hidden" name="quantity" id="directQuantity_carrot">
+          <button type="submit" class="px-4 py-2 bg-yellow-400 border-2 border-black rounded shadow-sm">🚀 طلب مباشر</button>
+        </form>
+      </div>
+    </main>
   </div>
 </div>
+
+<script>
+// نفس المفتاح اللي نستخدمه في جميع الصفحات
+const CART_KEY = 'minecraftCart_v1';
+
+// إضافة للسلة
+document.getElementById('addBtn_carrot').addEventListener('click', function() {
+  const name = document.getElementById('playerName_carrot').value.trim();
+  const quantity = parseInt(document.getElementById('quantity_carrot').value, 10);
+  if (!name || !quantity || quantity <= 0) { alert('الرجاء إدخال اسم صحيح والكمية'); return; }
+
+  const item = { product: 'Golden Carrot', name, quantity };
+  let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  cart.push(item);
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  console.log('Added to cart:', item, 'Cart now:', cart);
+  // حدث لتحديث بدج السلة في الصفحات الأخرى
+  window.dispatchEvent(new Event('storage'));
+  alert('✅ تمت إضافة المنتج إلى السلة');
+  window.location.href = 'cart.html';
+});
+
+// ملء الحقول قبل الإرسال المباشر
+document.getElementById('directForm_carrot').addEventListener('submit', function(e) {
+  const name = document.getElementById('playerName_carrot').value.trim();
+  const quantity = parseInt(document.getElementById('quantity_carrot').value, 10);
+  if (!name || !quantity || quantity <= 0) { e.preventDefault(); alert('الرجاء إدخال اسم صحيح والكمية'); return; }
+  document.getElementById('directName_carrot').value = name;
+  document.getElementById('directQuantity_carrot').value = quantity;
+});
+</script>
 </body>
 </html>
