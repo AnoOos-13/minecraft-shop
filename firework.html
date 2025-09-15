@@ -4,22 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ألعاب نارية - متجر ماينكرافت</title>
-<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
 body { 
   font-family: 'Press Start 2P', monospace; 
-  margin: 0;
-  padding: 0;
+  margin: 0; padding: 0;
   min-height: 100vh;
   background: url('imag/background.jpg.webp') no-repeat center center fixed;
   background-size: cover;
 }
-.bg-overlay {
-  background-color: rgba(0,0,0,0.5);
-  min-height: 100vh;
-}
-img { image-rendering: pixelated; }
+.bg-overlay { background-color: rgba(0,0,0,0.5); min-height: 100vh; }
 </style>
 </head>
 <body>
@@ -31,10 +25,54 @@ img { image-rendering: pixelated; }
     </header>
 
     <main class="bg-[#efe6c8] rounded-lg p-6 shadow-md border-2 border-[#c1a15a] text-center">
-      <img src="imag/firework.jfif" alt="firework" class="mx-auto w-32 h-32 mb-4">
-      <p class="mb-3 text-gray-700 text-sm">ادفع داخل اللعبة: <strong>32 فاير وورك = 1 دايمند</strong></p>
-      <form action="https://formspree.io/f/mdkljklw" method="POST">
-        <label class="block mb-2">اسمك داخل اللعبة:</label>
-        <input type="text" name="playerName" required class="border rounded px-2 py-1 mb-3 w-full text-center">
-        <label class="block mb-2">الكمية التي تريد الحصول عليها:</label>
-        <input type="number" name="quantity" value="1" min="1" required class="border rounded px-2 py-1 mb
+      <img src="imag/firework.jfif" class="mx-auto w-32 h-32 mb-4" alt="Firework">
+      <p class="mb-3 text-gray-700 text-sm">ادفع داخل اللعبة: <strong>32 فايرورك = 1 دايمند</strong></p>
+
+      <label class="block mb-2">اسمك داخل اللعبة:</label>
+      <input type="text" id="playerName_fire" class="border rounded px-2 py-1 mb-3 w-full text-center">
+
+      <label class="block mb-2">الكمية:</label>
+      <input type="number" id="quantity_fire" value="1" min="1" class="border rounded px-2 py-1 mb-3 w-24 text-center">
+
+      <div class="flex justify-center gap-4">
+        <button id="addBtn_fire" class="px-4 py-2 bg-green-400 border-2 border-black rounded shadow-sm">🛒 أضف للسلة</button>
+
+        <form id="directForm_fire" action="https://formspree.io/f/mdkljklw" method="POST" class="inline">
+          <input type="hidden" name="product" value="Firework">
+          <input type="hidden" name="playerName" id="directName_fire">
+          <input type="hidden" name="quantity" id="directQuantity_fire">
+          <button type="submit" class="px-4 py-2 bg-yellow-400 border-2 border-black rounded shadow-sm">🚀 طلب مباشر</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+const CART_KEY = 'minecraftCart_v1';
+
+document.getElementById('addBtn_fire').addEventListener('click', function() {
+  const name = document.getElementById('playerName_fire').value.trim();
+  const quantity = parseInt(document.getElementById('quantity_fire').value, 10);
+  if (!name || !quantity || quantity <= 0) { alert('الرجاء إدخال اسم صحيح والكمية'); return; }
+
+  const item = { product: 'Firework', name, quantity };
+  let cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  cart.push(item);
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  console.log('Added to cart:', item, 'Cart now:', cart);
+  window.dispatchEvent(new Event('storage'));
+  alert('✅ تمت الإضافة للسلة!');
+  window.location.href = 'cart.html';
+});
+
+document.getElementById('directForm_fire').addEventListener('submit', function(e) {
+  const name = document.getElementById('playerName_fire').value.trim();
+  const quantity = parseInt(document.getElementById('quantity_fire').value, 10);
+  if (!name || !quantity || quantity <= 0) { e.preventDefault(); alert('الرجاء إدخال اسم صحيح والكمية'); return; }
+  document.getElementById('directName_fire').value = name;
+  document.getElementById('directQuantity_fire').value = quantity;
+});
+</script>
+</body>
+</html>
