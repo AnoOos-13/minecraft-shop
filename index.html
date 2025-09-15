@@ -9,35 +9,53 @@
 <style>
 body { 
   font-family: 'Press Start 2P', monospace; 
-  background-image: url('imag/background.jpg.webp'); /* هنا صورة الخلفية */
-  background-size: cover;      /* لتغطية الشاشة */
-  background-position: center; /* تمركز الصورة */
+  background-image: url('imag/background.jpg.webp');
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 img { image-rendering: pixelated; }
+.badge { background: #e11d48; color: white; padding: 2px 8px; border-radius: 999px; font-size: 12px; }
 </style>
 </head>
 <body class="min-h-screen p-6">
-<div class="max-w-6xl mx-auto bg-black/50 p-6 rounded-lg"> <!-- خلفية شفافة للخليط مع الصورة -->
-<header class="flex items-center justify-center mb-10">
-<h1 class="text-white text-xl">🛒 Anas & Ali SHOP </h1>
+<div class="max-w-6xl mx-auto bg-black/50 p-6 rounded-lg">
+<header class="flex items-center justify-between mb-10">
+  <h1 class="text-white text-xl">🛒 Anas & Ali SHOP</h1>
+  <a href="cart.html" class="text-white text-sm border px-3 py-1 rounded hover:bg-white/20">
+    عرض السلة <span id="cartCountBadge" class="badge">0</span>
+  </a>
 </header>
+
 <main class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  <!-- Golden Carrot -->
+  <a href="carrot.html" class="block bg-[#efe6c8] rounded-lg p-4 shadow-md border-2 border-[#c1a15a] text-center hover:scale-105 transition-transform">
+    <img src="imag/Golden_carrots.jfif" alt="golden carrot" class="mx-auto w-24 h-24 mb-3">
+    <h2 class="text-lg">جزر ذهبي (Golden Carrot)</h2>
+  </a>
 
-<!-- Golden Carrot -->
-<a href="carrot.html" class="block bg-[#efe6c8] rounded-lg p-4 shadow-md border-2 border-[#c1a15a] text-center hover:scale-105 transition-transform">
-<img src="imag/Golden_carrots.jfif" alt="golden carrot" class="mx-auto w-24 h-24 mb-3">
-<h2 class="text-lg">جزر ذهبي (Golden Carrot)</h2>
-</a>
-
-<!-- Firework -->
-<a href="firework.html" class="block bg-[#efe6c8] rounded-lg p-4 shadow-md border-2 border-[#c1a15a] text-center hover:scale-105 transition-transform">
-<img src="imag/firework.jfif" alt="firework" class="mx-auto w-24 h-24 mb-3">
-<h2 class="text-lg">ألعاب نارية (Firework)</h2>
-</a>
-
+  <!-- Firework -->
+  <a href="firework.html" class="block bg-[#efe6c8] rounded-lg p-4 shadow-md border-2 border-[#c1a15a] text-center hover:scale-105 transition-transform">
+    <img src="imag/firework.jfif" alt="firework" class="mx-auto w-24 h-24 mb-3">
+    <h2 class="text-lg">ألعاب نارية (Firework)</h2>
+  </a>
 </main>
-<footer class="mt-10 text-center text-xs text-white/80">اضغط على أي منتج لتحديد الكمية داخل الصفحة الخاصة به.</footer>
+
+<footer class="mt-10 text-center text-xs text-white/80">
+  اضغط على أي منتج لتحديد الكمية أو إضافته إلى السلة.
+</footer>
 </div>
+
+<script>
+// مفتاح السلة في localStorage (واضح لتفادي تعارض)
+const CART_KEY = 'minecraftCart_v1';
+
+function updateCartBadge() {
+  const cart = JSON.parse(localStorage.getItem(CART_KEY) || '[]');
+  document.getElementById('cartCountBadge').innerText = cart.length;
+}
+window.addEventListener('load', updateCartBadge);
+window.addEventListener('storage', updateCartBadge); // لو تغيرت السلة في تاب آخر
+</script>
 </body>
 </html>
